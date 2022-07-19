@@ -23,11 +23,11 @@ unsigned int _strspn(char *s, char *accept)
 				break;
 			}
 		}
-	if (!(*--accept))
-	{
-	break;
-	}
-accept = t;
+		if (!(*--accept))
+		{
+			break;
+		}
+		accept = t;
 	}
 	return (i);
 }
