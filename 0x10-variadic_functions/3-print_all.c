@@ -1,83 +1,97 @@
-#include <stdarg.h>
-
-#include <stdio.h>
-
-#include <stdlib.h>
-
 #include "variadic_functions.h"
 
 
 
 /**
  *
- *  * print_all - prints anything.
+ *  * print_all - print strings with given separator
  *
- *   * @format: types of arguments passed to the function.
+ *   * @format: a string pointer
  *
- *    * Return: nothing.
+ *    *
  *
- *     */
+ *     * Return: void function
+ *
+ *      */
+
+
 
 void print_all(const char * const format, ...)
 
 {
 
-		va_list arguments;
+	va_list args;
 
-			unsigned int i = 0;
+	char *s;
 
-				char *s;
+	int n = strlen(format);
+
+	int i = 0;
 
 
 
-					va_start(arguments, format);
+	va_start(args, format);
 
-						while (format && format[i])
+	if (format == NULL)
 
-								{
+			exit(1);
 
-											switch (format[i++])
 
-														{
 
-																		case 'c':
+	while (i < n)
 
-																							printf("%c", va_arg(arguments, int));
+	{
 
-																											break;
+		switch (format[i])
 
-																														case 'i':
+		{
 
-																															printf("%d", va_arg(arguments, int));
+			case 'c':
 
-																																			break;
+				printf("%c", va_arg(args, int));
 
-																																						case 'f':
+				break;
 
-																																							printf("%f", va_arg(arguments, double));
+			case 'i':
 
-																																											break;
+				printf("%i", va_arg(args, int));
 
-																																														case 's':
+				break;
 
-																																															s = va_arg(arguments, char *);
+			case 'f':
 
-																																																			printf("%s", s != NULL ? s : "(nil)");
+				printf("%f", va_arg(args, double));
 
-																																																							break;
+				break;
 
-																																																										default:
+			case 's':
 
-																																																											continue;
+				s = va_arg(args, char *);
 
-																																																													}
+				while (s == NULL)
 
-													if (format[i])
+					s = "(nil)";
 
-																	printf(", ");
+				printf("%s", s);
 
-														}
+				break;
 
-							printf("\n");
+			default:
+
+				i++;
+
+				continue;
+
+		}
+
+		if (++i < n)
+
+			printf(", ");
+
+	}
+
+	printf("\n");
+
+	va_end(args);
 
 }
