@@ -1,1 +1,1 @@
- This is readme file variable function assignment
+This is readme file in variadic function assignment
